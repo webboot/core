@@ -1,8 +1,16 @@
 import log from '@magic/log'
+import is from '@magic/types'
+import crypto from 'crypto'
 
-export const generate = args => {
+import { getFiles, createFileHash } from '../lib/index.mjs'
+
+export const generate = async state => {
   log.error('ENOTIMPLEMENTED', 'not implemented yet.')
-  console.log('@webboot/core generate', args)
+  console.log('@webboot/core generate', state)
 
-  return true
+  const files = await getFiles(state)
+
+  state.files = files.map(file => createFileHash({ file }))
+
+  return state
 }
