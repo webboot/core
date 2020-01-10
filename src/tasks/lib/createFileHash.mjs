@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-export const createFileHash = ({ file, algorithm = 'sha384' }) => {
+export const createFileHash = ({ algorithm = 'sha384', ...file }) => {
   const { content } = file
 
   const hashIt = crypto.createHash(algorithm)
