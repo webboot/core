@@ -14,6 +14,7 @@ export const getFiles = async state => {
   const files = await Promise.all(
     filePaths.map(async file => ({
       file,
+      url: file.replace(state.dir, '').replace('index.html') || '/',
       content: await fs.readFile(file, 'utf8'),
     })),
   )
