@@ -1,6 +1,6 @@
 import log from '@magic/log'
 
-import { getFiles, createFileHash } from '../lib/index.mjs'
+import { getFiles, createFileHash } from './lib/index.mjs'
 
 export const generate = async state => {
   const startTime = log.hrtime()
