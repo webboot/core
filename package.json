@@ -1,0 +1,50 @@
+{
+  "name": "@webboot/core",
+  "version": "0.0.1",
+  "author": "Wizards & Witches @ Webboot DAO",
+  "homepage": "https://webboot.github.io",
+  "license": "AGPL-3.0",
+  "description": "@webboot/core. generate, verify, sign, and release sri-hashes for your static page.",
+  "module": "src/index.mjs",
+  "engines": {
+    "node": ">=13.5.0"
+  },
+  "engineString": true,
+  "scripts": {
+    "start": "t -p",
+    "test": "t",
+    "calls": "calls"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webboot/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webboot/core/issues"
+  },
+  "dependencies": {
+    "@magic/log": "0.1.3"
+  },
+  "devDependencies": {
+    "@magic/format": "0.0.7",
+    "@magic/test": "0.1.29"
+  },
+  "keywords": [
+    "magic",
+    "static",
+    "page",
+    "generator",
+    "serverless",
+    "lamda",
+    "hyperapp"
+  ],
+  "contributors": [
+    {
+      "name": "jascha ehrenreich",
+      "github": "jaeh"
+    }
+  ]
+}
