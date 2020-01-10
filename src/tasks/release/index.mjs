@@ -1,8 +1,7 @@
 import log from '@magic/log'
 
-export const release = args => {
-  log.error('ENOTIMPLEMENTED', 'not implemented yet.')
-  console.log('@webboot/core release', args)
+export const release = async state => {
+  log.error('ENOTIMPLEMENTED', '@webboot/core release not implemented yet.')
 
-  return true
+  return state
 }

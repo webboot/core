@@ -1,8 +1,7 @@
 import log from '@magic/log'
 
-export const sign = args => {
-  log.error('ENOTIMPLEMENTED', 'not implemented yet.')
-  console.log('@webboot/core sign', args)
+export const sign = async state => {
+  log.error('ENOTIMPLEMENTED', '@webboot/core sign is not implemented yet.')
 
-  return true
+  return state
 }
