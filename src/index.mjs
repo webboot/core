@@ -2,7 +2,7 @@ import log from '@magic/log'
 
 import * as tasks from './tasks/index.mjs'
 
-export const { generate, release, sign, verify } = tasks
+export const { generate, release, sign, verify, write } = tasks
 
 export const webboot = tasks.verify
 
@@ -10,5 +10,6 @@ webboot.verify = tasks.verify
 webboot.sign = tasks.sign
 webboot.generate = tasks.generate
 webboot.release = tasks.release
+webboot.write = tasks.write
 
 export default webboot
