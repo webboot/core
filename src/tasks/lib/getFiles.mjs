@@ -11,13 +11,13 @@ export const getFiles = async state => {
 
   const filePaths = await fs.getFiles(state.dir)
 
-  const files = await Promise.all(
-    filePaths.map(async file => ({
+  const filePromises = filePaths
+    .filter(file => !file.endsWith('sri-hashes.json'))
+    .map(async file => ({
       file,
-      url: file.replace(state.dir, '').replace('index.html') || '/',
+      url: file.replace(state.dir, '').replace('index.html', '') || '/',
       content: await fs.readFile(file, 'utf8'),
-    })),
-  )
+    }))
 
-  return files
+  return await Promise.all(filePromises)
 }
