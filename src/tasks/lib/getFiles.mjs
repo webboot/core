@@ -11,10 +11,12 @@ export const getFiles = async state => {
 
   const filePaths = await fs.getFiles(state.dir)
 
-  const files = await Promise.all(filePaths.map(async file => ({
-    file,
-    content: await fs.readFile(file, 'utf8'),
-  })))
+  const files = await Promise.all(
+    filePaths.map(async file => ({
+      file,
+      content: await fs.readFile(file, 'utf8'),
+    })),
+  )
 
   return files
 }
