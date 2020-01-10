@@ -5,7 +5,7 @@
   "homepage": "https://webboot.github.io",
   "license": "AGPL-3.0",
   "description": "@webboot/core. generate, verify, sign, and release sri-hashes for your static page.",
-  "module": "src/index.mjs",
+  "main": "src/index.mjs",
   "engines": {
     "node": ">=13.5.0"
   },
