@@ -9,7 +9,7 @@ export const getFiles = async state => {
   const filePaths = await fs.getFiles(state.dir)
 
   const filePromises = filePaths
-    .filter(file => !file.endsWith('sri-hashes.json'))
+    .filter(file => !file.endsWith(state.sri))
     .map(async file => ({
       file,
       url: file.replace(state.dir, '').replace('index.html', '') || '/',

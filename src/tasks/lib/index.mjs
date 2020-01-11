@@ -1,2 +1,2 @@
 export { getFiles } from './getFiles.mjs'
-export { createFileHash } from './createFileHash.mjs'
+export * as fileHash from './hashes.mjs'
