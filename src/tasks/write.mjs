@@ -9,8 +9,5 @@ export const write = async state => {
 
   const hashString = `{\n${hashes}\n}`
 
-  const sriHashFile = path.join(state.dir, 'sri-hashes.json')
-  const written = await fs.writeFile(sriHashFile, hashString)
-
-  return written
+  return await fs.writeFile(state.sri, hashString)
 }
