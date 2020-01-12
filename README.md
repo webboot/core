@@ -32,4 +32,4 @@ head to the [docs / demo](https://webboot.github.io/)
 #### changelog
 
 ##### 0.0.1
-first commit
+first release
