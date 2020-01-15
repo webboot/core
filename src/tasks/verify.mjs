@@ -27,9 +27,7 @@ export const verify = async state => {
     .map(f => f.file)
 
   if (mismatches.length) {
-    const err = new Error(`file hash mismatches: \n${mismatches.join('\n')}`)
-    err.code = 'EHASHMISMATCH'
-    return err
+    return error(`file hash mismatches: \n${mismatches.join('\n')}`, 'E_HASH_MISMATCH')
   }
 
   log.timeTaken(startTime, '@webboot/core verify took:')
