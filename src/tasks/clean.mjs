@@ -4,7 +4,7 @@ export const clean = async state => {
   try {
     await fs.rmrf(state.sri)
     return true
-  } catch(e) {
+  } catch (e) {
     if (e.code === 'ENOENT') {
       return true
     }
