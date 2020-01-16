@@ -23,7 +23,7 @@
   "dependencies": {
     "@magic/fs": "0.0.2",
     "@magic/log": "0.1.3",
-    "@magic/types": "0.1.9",
+    "@magic/types": "0.1.10",
     "@webboot/crypto": "github:webboot/crypto"
   },
   "devDependencies": {
