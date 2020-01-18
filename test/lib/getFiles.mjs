@@ -8,7 +8,7 @@ const dir = path.join(process.cwd(), 'test', 'lib', '.testlib')
 const nonExistDir = path.join(process.cwd(), '.nonexist')
 const notADir = path.join(process.cwd(), 'test', 'lib', '.testlib', 'index.html')
 
-const urls = [ '/index.css', '/', '/index.js', '/sub/', '/sub/test/' ]
+const urls = ['/index.css', '/', '/index.js', '/sub/', '/sub/test/']
 const files = [
   path.join(dir, 'index.css'),
   path.join(dir, 'index.html'),
@@ -32,14 +32,30 @@ export default [
   },
   {
     fn: getFiles({ dir, sri: 'sri' }),
-    expect: f => is.deep.equal(f.map(f => f.url), urls),
+    expect: f =>
+      is.deep.equal(
+        f.map(f => f.url),
+        urls,
+      ),
     info: 'getFiles returns array with expected urls',
   },
   {
     fn: getFiles({ dir, sri: 'sri' }),
-    expect: f => is.deep.equal(f.map(f => f.file), files),
+    expect: f =>
+      is.deep.equal(
+        f.map(f => f.file),
+        files,
+      ),
     info: 'getFiles returns array with expected urls',
   },
-  { fn: tryCatch(getFiles, { dir: nonExistDir, sri: 'sri'}), expect: t => t.name === 'Error' && t.code === 'ENOENT', info: 'non existant dir errors with Error: ENOENT' },
-  { fn: tryCatch(getFiles, { dir: notADir, sri: 'sri' }), expect: t => t.name === 'E_NOT_A_DIR', info: 'file errors with E_NOT_A_DIR' },
+  {
+    fn: tryCatch(getFiles, { dir: nonExistDir, sri: 'sri' }),
+    expect: t => t.name === 'Error' && t.code === 'ENOENT',
+    info: 'non existant dir errors with Error: ENOENT',
+  },
+  {
+    fn: tryCatch(getFiles, { dir: notADir, sri: 'sri' }),
+    expect: t => t.name === 'E_NOT_A_DIR',
+    info: 'file errors with E_NOT_A_DIR',
+  },
 ]
