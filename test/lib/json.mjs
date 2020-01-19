@@ -10,6 +10,7 @@ const validJsonNullTwo = `{
 
 export default [
   { fn: parse(validJson).tested, expect: true, info: 'can parse valid json' },
+
   {
     fn: parse(stringify(parse('{"tested": true}'))).tested,
     expect: true,

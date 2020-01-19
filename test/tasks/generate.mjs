@@ -2,7 +2,7 @@ import path from 'path'
 
 import { fs, is, tryCatch } from '@magic/test'
 
-import { generate } from '../../src/tasks/generate.mjs'
+import { generate, errors } from '../../src/tasks/generate.mjs'
 
 const testFiles = [{ content: 'testing_1' }, { content: 'testing_2' }]
 
@@ -29,32 +29,18 @@ const before = id => async () => {
 export default [
   {
     fn: tryCatch(generate),
-    expect: t => t.name === 'E_ARG_EMPTY',
-    info: 'calling generate without an argument throws E_ARG_EMPTY',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    info: 'calling generate without an argument throws E_STATE_EMPTY',
   },
   {
     fn: tryCatch(generate, ''),
-    expect: t => t.name === 'E_ARG_EMPTY',
-    info: 'calling generate with empty argument throws E_ARG_EMPTY',
-  },
-  {
-    fn: generate({ files: testFiles }),
-    expect: t => is.array(t.files) && is.len.eq(t.files, 2),
-    info: 'calling generate with empty argument throws E_ARG_EMPTY',
-  },
-  {
-    fn: generate({ files: testFiles }),
-    expect: t =>
-      is.deep.eq(
-        expectedHashes,
-        t.files.map(f => f.hash),
-      ),
-    info: 'calling generate with state.files set returns a list of those files',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    info: 'calling generate with empty argument throws E_STATE_EMPTY',
   },
   {
     fn: tryCatch(generate, { unused: true }),
-    expect: t => t.code === 'E_ARG_MISSING',
-    info: 'generate without .dir and .files returns E_ARG_MISSING',
+    expect: t => is.deep.eq([t.message, t.code], errors.E_STATE_DIR_MISSING),
+    info: 'generate without .dir returns E_STATE_DIR_MISSING',
   },
   {
     fn: async () => await generate({ dir: testDir + 1 }),

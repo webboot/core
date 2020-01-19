@@ -4,7 +4,7 @@ import crypto from '@webboot/crypto'
 
 import { fs, is, tryCatch } from '@magic/test'
 
-import { verify } from '../../src/tasks/verify.mjs'
+import { verify, errors } from '../../src/tasks/verify.mjs'
 
 const fixturePath = path.join(process.cwd(), 'test', 'tasks', '.fixtures')
 
@@ -26,7 +26,7 @@ export default [
   { fn: tryCatch(verify), expect: is.error, info: 'errors without a state' },
   {
     fn: tryCatch(verify),
-    expect: t => t.code === 'E_STATE_EMPTY',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
     info: 'errors without a state, code: E_STATE_EMPTY',
   },
   {
@@ -36,8 +36,13 @@ export default [
   },
   {
     fn: tryCatch(verify, { unused: true }),
-    expect: t => t.code === 'E_STATE_KEY_MISSING',
-    info: 'errors if state.sri is empty, code: E_STATE_KEY_MISSING',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_EMPTY),
+    info: 'error if state.sri is empty: E_STATE_SRI_EMPTY',
+  },
+  {
+    fn: tryCatch(verify, { sri: 23 }),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_TYPE),
+    info: 'error if state.sri is empty: E_STATE_SRI_TYPE',
   },
   {
     fn: tryCatch(verify, { sri: '/not/a/path/at/all.json' }),

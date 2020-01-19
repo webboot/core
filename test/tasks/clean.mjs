@@ -2,13 +2,17 @@ import path from 'path'
 
 import { fs, is, tryCatch } from '@magic/test'
 
-import { clean } from '../../src/tasks/clean.mjs'
+import { errorMessages } from '../../src/errorMessages.mjs'
+
+import { clean, libName } from '../../src/tasks/clean.mjs'
 
 const testDir = path.join(process.cwd(), '.__test__clean__')
 
 const sriFileName = 'sri-hashes.json'
 
 const sriFullPath = path.join(testDir, sriFileName)
+
+const errors = errorMessages(libName)
 
 const before = id => async () => {
   let dir = testDir + id
@@ -68,17 +72,17 @@ export default [
   },
   {
     fn: tryCatch(clean),
-    expect: t => t.name === 'E_ARG_EMPTY',
-    info: 'empty arguments throw E_ARG_EMPTY',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    info: 'empty arguments throw E_STATE_EMPTY',
   },
   {
     fn: tryCatch(clean, { sri: '' }),
-    expect: t => t.name === 'E_ARG_EMPTY',
-    info: 'empty sri errors with E_ARG_EMPTY.',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_EMPTY),
+    info: 'empty sri errors with E_STATE_SRI_EMPTY.',
   },
   {
     fn: tryCatch(clean, { sri: 23 }),
-    expect: t => t.name === 'E_ARG_TYPE',
-    info: 'empty sri errors with E_ARG_TYPE.',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_TYPE),
+    info: 'empty sri errors with E_STATE_SRI_TYPE.',
   },
 ]

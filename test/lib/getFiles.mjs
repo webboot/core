@@ -2,7 +2,7 @@ import path from 'path'
 
 import { is, tryCatch } from '@magic/test'
 
-import { getFiles } from '../../src/lib/getFiles.mjs'
+import { getFiles, errors } from '../../src/lib/getFiles.mjs'
 
 const dir = path.join(process.cwd(), 'test', 'lib', '.testlib')
 const nonExistDir = path.join(process.cwd(), '.nonexist')
@@ -18,7 +18,11 @@ const files = [
 ]
 
 export default [
-  { fn: tryCatch(getFiles), expect: t => t.name === 'E_STATE_EMPTY', info: 'getFiles' },
+  {
+    fn: tryCatch(getFiles),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    info: 'getFiles without state errors with E_STATE_EMPTY',
+  },
   {
     fn: tryCatch(getFiles, { files: [1, 2, 3] }),
     expect: is.deep.equal([1, 2, 3]),
@@ -55,7 +59,7 @@ export default [
   },
   {
     fn: tryCatch(getFiles, { dir: notADir, sri: 'sri' }),
-    expect: t => t.name === 'E_NOT_A_DIR',
-    info: 'file errors with E_NOT_A_DIR',
+    expect: t => is.deep.eq([t.message, t.name], errors.E_NOT_A_DIR),
+    info: 'file instead of directory errors with E_NOT_A_DIR',
   },
 ]
