@@ -19,19 +19,35 @@ export const verify = async state => {
   const startTime = log.hrtime()
 
   if (is.empty(state)) {
-    throw error(...errors.E_STATE_EMPTY)
+    throw error(errors.E_STATE_EMPTY)
+  }
+
+  if (!is.objectNative(state)) {
+    throw error(errors.E_STATE_TYPE)
   }
 
   if (is.empty(state.sri)) {
-    throw error(...errors.E_STATE_SRI_EMPTY)
+    throw error(errors.E_STATE_SRI_EMPTY)
   }
 
   if (!is.string(state.sri)) {
-    throw error(...errors.E_STATE_SRI_TYPE)
+    throw error(errors.E_STATE_SRI_TYPE)
   }
 
   if (!path.isAbsolute(state.sri)) {
     state.sri = path.join(state.cwd, state.sri)
+  }
+
+  if (is.empty(state.dir)) {
+    throw error(errors.E_STATE_DIR_EMPTY)
+  }
+
+  if (!is.string(state.dir)) {
+    throw error(errors.E_STATE_DIR_TYPE)
+  }
+
+  if (!path.isAbsolute(state.dir)) {
+    state.dir = path.join(state.cwd, state.dir)
   }
 
   state.files = await getFiles(state)
