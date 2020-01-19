@@ -4,11 +4,15 @@ import error from '@magic/error'
 
 import crypto from '@webboot/crypto'
 
+import { errorMessages } from '../errorMessages.mjs'
+
 const libName = '@webboot/core.lib.getFiles'
+
+export const errors = errorMessages(libName)
 
 export const getFiles = async (state = {}) => {
   if (is.empty(state)) {
-    throw error(`${libName} state can not be empty`, 'E_STATE_EMPTY')
+    throw error(...errors.E_STATE_EMPTY)
   }
 
   if (!is.empty(state.files)) {
@@ -18,7 +22,7 @@ export const getFiles = async (state = {}) => {
   const stat = await fs.stat(state.dir)
 
   if (!stat.isDirectory()) {
-    throw error(`${libName} expects a directory, not a file`, 'E_NOT_A_DIR')
+    throw error(...errors.E_NOT_A_DIR)
   }
 
   const filePaths = await fs.getFiles(state.dir, true)
