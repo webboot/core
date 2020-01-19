@@ -21,7 +21,7 @@
   },
   "engineString": true,
   "dependencies": {
-    "@magic/error": "0.0.3",
+    "@magic/error": "0.0.4",
     "@magic/fs": "0.0.3",
     "@magic/log": "0.1.3",
     "@magic/types": "0.1.10",
