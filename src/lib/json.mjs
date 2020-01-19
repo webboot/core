@@ -8,7 +8,7 @@ export const parse = (thing, ...rest) => {
     return JSON.parse(thing, ...rest)
   } catch (e) {
     if (e.name === 'SyntaxError') {
-      throw error(e.message, 'JSON_PARSE')
+      throw error(`${libName}.parse:\n${e.message}`, 'JSON_PARSE')
     }
 
     throw error(e)
