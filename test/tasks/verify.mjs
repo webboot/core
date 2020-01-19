@@ -75,6 +75,4 @@ export default [
     expect: t => !is.error(t),
     info: 'state.sri can be relative to process.cwd().',
   },
-
-
 ]
