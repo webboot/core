@@ -17,9 +17,9 @@ const cwd = process.cwd()
 const localSriHashPath = sriHashPath.replace(cwd, '')
 
 const relativePathOptions = {
-  dir: fixturePath,
-  sri: 'sri-hashes.json',
-  cwd: fixturePath,
+  dir: path.join('test', 'tasks', '.fixtures'),
+  sri: path.join('test', 'tasks', '.fixtures', 'sri-hashes.json'),
+  cwd: process.cwd(),
 }
 
 export default [
@@ -28,6 +28,11 @@ export default [
     fn: tryCatch(verify),
     expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
     info: 'errors without a state, code: E_STATE_EMPTY',
+  },
+  {
+    fn: tryCatch(verify, ['']),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_TYPE),
+    info: 'state must be an object, code: E_STATE_TYPE',
   },
   {
     fn: tryCatch(verify, { unused: true }),
@@ -50,9 +55,14 @@ export default [
     info: 'errors if state.sri is not a valid path',
   },
   {
-    fn: tryCatch(verify, { sri: '/not/a/path/at/all.json' }),
-    expect: t => t.code === 'ERR_INVALID_ARG_TYPE',
-    info: 'errors if state.sri is not a valid path, code: ERR_INVALID_ARG_TYPE',
+    fn: tryCatch(verify, { sri: sriHashPath, dir: '' }),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_EMPTY),
+    info: 'errors if state.dir is empty, code: E_STATE_DIR_EMPTY',
+  },
+  {
+    fn: tryCatch(verify, { sri: sriHashPath, dir: 23 }),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_TYPE),
+    info: 'errors if state.dir is not a string, code: E_STATE_DIR_TYPE',
   },
   {
     fn: verify({ dir: fixturePath, sri: sriHashPath }),
@@ -78,6 +88,6 @@ export default [
   {
     fn: verify(relativePathOptions),
     expect: t => !is.error(t),
-    info: 'state.sri can be relative to process.cwd().',
+    info: 'state.sri and state.dir can be relative to process.cwd().',
   },
 ]

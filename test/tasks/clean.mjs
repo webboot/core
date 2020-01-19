@@ -4,15 +4,13 @@ import { fs, is, tryCatch } from '@magic/test'
 
 import { errorMessages } from '../../src/errorMessages.mjs'
 
-import { clean, libName } from '../../src/tasks/clean.mjs'
+import { clean, errors } from '../../src/tasks/clean.mjs'
 
 const testDir = path.join(process.cwd(), '.__test__clean__')
 
 const sriFileName = 'sri-hashes.json'
 
 const sriFullPath = path.join(testDir, sriFileName)
-
-const errors = errorMessages(libName)
 
 const before = id => async () => {
   let dir = testDir + id
@@ -73,7 +71,12 @@ export default [
   {
     fn: tryCatch(clean),
     expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
-    info: 'empty arguments throw E_STATE_EMPTY',
+    info: 'empty state throw E_STATE_EMPTY',
+  },
+  {
+    fn: tryCatch(clean, ['']),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_TYPE),
+    info: 'non object state throw E_STATE_TYPE',
   },
   {
     fn: tryCatch(clean, { sri: '' }),

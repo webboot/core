@@ -38,10 +38,21 @@ export default [
     info: 'calling generate with empty argument throws E_STATE_EMPTY',
   },
   {
-    fn: tryCatch(generate, { unused: true }),
-    expect: t => is.deep.eq([t.message, t.code], errors.E_STATE_DIR_MISSING),
-    info: 'generate without .dir returns E_STATE_DIR_MISSING',
+    fn: tryCatch(generate, ['']),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_TYPE),
+    info: 'calling generate with non-empty array throws E_STATE_TYPE',
   },
+  {
+    fn: tryCatch(generate, { unused: true }),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_EMPTY),
+    info: 'generate without .dir returns E_STATE_DIR_EMPTY',
+  },
+  {
+    fn: tryCatch(generate, { dir: 23 }),
+    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_TYPE),
+    info: 'generate without .dir returns E_STATE_DIR_TYPE',
+  },
+
   {
     fn: async () => await generate({ dir: testDir + 1 }),
     expect: t => t.dir === testDir + 1,
