@@ -4,7 +4,7 @@ import error from '@magic/error'
 
 import crypto from '@webboot/crypto'
 
-import { getFiles } from './lib/index.mjs'
+import { getFiles } from '../lib/index.mjs'
 
 const libName = '@webboot/core.tasks.generate'
 
@@ -19,17 +19,7 @@ export const generate = async state => {
 
   const startTime = log.hrtime()
 
-  const files = await getFiles(state)
-
-  state.files = files.map(file => {
-    const { hash, algorithm } = crypto.hash.create(file.content)
-
-    return {
-      ...file,
-      hash,
-      algorithm,
-    }
-  })
+  state.files = await getFiles(state)
 
   log.timeTaken(startTime, `${libName} took:`)
 
