@@ -2,7 +2,7 @@ import path from 'path'
 
 import { is, tryCatch } from '@magic/test'
 
-import { getFiles } from '../../src/tasks/lib/getFiles.mjs'
+import { getFiles } from '../../src/lib/getFiles.mjs'
 
 const dir = path.join(process.cwd(), 'test', 'lib', '.testlib')
 const nonExistDir = path.join(process.cwd(), '.nonexist')

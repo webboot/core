@@ -11,17 +11,18 @@ const expectedHashes = [
   'cPJvccnz99s+Ve07OQj4wGsQDwQV0xBKJhuVwaGBWkWaqaBcx11jcrL6iklEIEJB',
 ]
 
-const testDir = path.join(process.cwd(), '.__test__')
+const testDir = path.join(process.cwd(), '.__test__generate__')
 
-const before = async id => {
-  await fs.mkdirp(testDir + id)
+const before = id => async () => {
+  const dir = testDir + id
+  await fs.mkdirp(dir)
 
   await Promise.all(
-    testFiles.map(async (f, i) => await fs.writeFile(path.join(testDir + id, 'file_' + (i + 1)), f)),
+    testFiles.map(async (f, i) => await fs.writeFile(path.join(dir, 'file_' + (i + 1)), f)),
   )
 
   return async () => {
-    await fs.rmrf(testDir + id)
+    await fs.rmrf(dir)
   }
 }
 
@@ -53,18 +54,18 @@ export default [
   {
     fn: tryCatch(generate, { unused: true }),
     expect: t => t.code === 'E_ARG_MISSING',
-    info: 'generate without .dir and .files returns E_ARG_MISSING'
+    info: 'generate without .dir and .files returns E_ARG_MISSING',
   },
   {
     fn: async () => await generate({ dir: testDir + 1 }),
     expect: t => t.dir === testDir + 1,
     before: before(1),
-    info: 'generate can work with a dir and without files, returns same dir as .dir'
+    info: 'generate can work with a dir and without files, returns same dir as .dir',
   },
   {
     fn: async () => await generate({ dir: testDir + 2 }),
     expect: t => is.length.eq(t.files, 2),
     before: before(2),
-    info: 'generate can work with a dir and without files, returns correct number of files'
+    info: 'generate can work with a dir and without files, returns correct number of files',
   },
 ]
