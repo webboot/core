@@ -1,8 +1,4 @@
-import error from '@magic/error'
-
 import crypto from '@webboot/crypto'
-
-const libName = '@webboot/core.lib.threeWayVerifyFile'
 
 export const threeWayVerifyFile = sriHashes => file => {
   const fileHash = crypto.hash.create(file.content)
