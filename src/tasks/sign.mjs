@@ -14,11 +14,11 @@ export const sign = async state => {
   const startTime = log.hrtime()
 
   const { pass } = state
-  const file = {
+  const pubKeyFile = {
     path: state.key,
   }
 
-  if (!file.path) {
+  if (!pubKeyFilepath) {
     return error('--key is required', 'EKEYREQ')
   }
 
@@ -26,26 +26,26 @@ export const sign = async state => {
     return error('--passphrase is required', 'EPASSREQ')
   }
 
-  if (!path.isAbsolute(file.path)) {
-    file.path = path.join(cwd, file.path)
+  if (!path.isAbsolute(pubKeyFilepath)) {
+    pubKeyFilepath = path.join(cwd, pubKeyFilepath)
   }
 
-  if (!file.path.endsWith('.pub')) {
-    const pubExists = await fs.exists(`${file.path}.pub`)
+  if (!pubKeyFilepath.endsWith('.pub')) {
+    const pubExists = await fs.exists(`${pubKeyFilepath}.pub`)
     if (pubExists) {
       log.warn('W_PRIV_KEY', [
-        '${libName}: ${file.path} seems to point to a private key file.',
+        '${libName}: ${pubKeyFilepath} seems to point to a private key file.',
         'To make sure @webboot never reads a private key file by accident,',
-        'we will instead read ${file.path}.pub',
+        'we will instead read ${pubKeyFilepath}.pub',
         'If this results in an error, please file an issue with your use case.',
         'https://github.com/webboot/core/',
       ])
 
-      file.path = `${file.path}.pub`
+      pubKeyFilepath = `${pubKeyFilepath}.pub`
     }
   }
 
-  const content = await fs.readFile(file.path, 'utf8')
+  const content = await fs.readFile(pubKeyFilepath, 'utf8')
 
   if (content.includes('PRIVATE KEY')) {
     // clean content variable to remove private key. at least try to, it's node.
