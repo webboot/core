@@ -2,19 +2,23 @@ import fs from '@magic/fs'
 import error from '@magic/error'
 import is from '@magic/types'
 
-const libName = '@weboot/core.tasks.clean'
+import { errorMessages } from '../errorMessages.mjs'
+
+export const libName = '@webboot/core.tasks.clean'
+
+const errors = errorMessages(libName)
 
 export const clean = async state => {
   if (is.empty(state)) {
-    throw error(`${libName} expects argument to be an object`, 'E_ARG_EMPTY')
+    throw error(...errors.E_STATE_EMPTY)
   }
 
   if (is.empty(state.sri)) {
-    throw error(`${libName} expects state.sri to be non-empty`, 'E_ARG_EMPTY')
+    throw error(...errors.E_STATE_SRI_EMPTY)
   }
 
   if (!is.string(state.sri)) {
-    throw error(`${libName} expects state.sri to be a string`, 'E_ARG_TYPE')
+    throw error(...errors.E_STATE_SRI_TYPE)
   }
 
   return await fs.rmrf(state.sri)

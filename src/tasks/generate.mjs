@@ -4,17 +4,21 @@ import error from '@magic/error'
 
 import crypto from '@webboot/crypto'
 
+import { errorMessages } from '../errorMessages.mjs'
+
 import { getFiles } from '../lib/index.mjs'
 
 const libName = '@webboot/core.tasks.generate'
 
+export const errors = errorMessages(libName)
+
 export const generate = async state => {
   if (is.empty(state)) {
-    throw error(`${libName} state can not be empty.`, 'E_ARG_EMPTY')
+    throw error(...errors.E_STATE_EMPTY)
   }
 
-  if (is.empty(state.files) && is.empty(state.dir)) {
-    throw error(`${libName} state.dir OR state.files has to be set.`, 'E_ARG_MISSING')
+  if (is.empty(state.dir)) {
+    throw error(...errors.E_STATE_DIR_MISSING)
   }
 
   const startTime = log.hrtime()
