@@ -4,13 +4,17 @@ import is from '@magic/types'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-export const libName = '@webboot/core.tasks.clean'
+const libName = '@webboot/core.tasks.clean'
 
-const errors = errorMessages(libName)
+export const errors = errorMessages(libName)
 
 export const clean = async state => {
   if (is.empty(state)) {
     throw error(...errors.E_STATE_EMPTY)
+  }
+
+  if (!is.objectNative(state)) {
+    throw error(errors.E_STATE_TYPE)
   }
 
   if (is.empty(state.sri)) {
