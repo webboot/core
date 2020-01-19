@@ -2,9 +2,13 @@ import fs from '@magic/fs'
 import is from '@magic/types'
 import error from '@magic/error'
 
+import crypto from '@webboot/crypto'
+
+const libName = '@webboot/core.lib.getFiles'
+
 export const getFiles = async (state = {}) => {
   if (is.empty(state)) {
-    throw error('state can not be empty', 'E_STATE_EMPTY')
+    throw error(`${libName} state can not be empty`, 'E_STATE_EMPTY')
   }
 
   if (!is.empty(state.files)) {
@@ -14,7 +18,7 @@ export const getFiles = async (state = {}) => {
   const stat = await fs.stat(state.dir)
 
   if (!stat.isDirectory()) {
-    throw error('getFiles expects a directory, not a file', 'E_NOT_A_DIR')
+    throw error(`${libName} expects a directory, not a file`, 'E_NOT_A_DIR')
   }
 
   const filePaths = await fs.getFiles(state.dir, true)
@@ -27,10 +31,16 @@ export const getFiles = async (state = {}) => {
         .replace('index.html', '')
         .replace('.html', '/')
 
+      const content = await fs.readFile(file, 'utf8')
+
+      const { hash, algorithm } = crypto.hash.create(content)
+
       return {
+        algorithm,
+        content,
         file,
+        hash,
         url,
-        content: await fs.readFile(file, 'utf8'),
       }
     })
 
