@@ -8,6 +8,8 @@ import crypto from '@webboot/crypto'
 
 const cwd = process.cwd()
 
+const libName = '@webboot/core.tasks.sign'
+
 export const sign = async state => {
   const startTime = log.hrtime()
 
@@ -31,15 +33,13 @@ export const sign = async state => {
   if (!file.path.endsWith('.pub')) {
     const pubExists = await fs.exists(`${file.path}.pub`)
     if (pubExists) {
-      log.warn(
-        'WPRIVKEY',
-        `${file.path} seems to point to a public key file.
-To make sure @webboot never reads a private key file by accident,
-we will instead read ${file.path}.pub
-If this results in an error, please file an issue with your use case.
-https://github.com/webboot/cli/
-`.trim(),
-      )
+      log.warn('W_PRIV_KEY', [
+        '${libName}: ${file.path} seems to point to a private key file.',
+        'To make sure @webboot never reads a private key file by accident,',
+        'we will instead read ${file.path}.pub',
+        'If this results in an error, please file an issue with your use case.',
+        'https://github.com/webboot/core/',
+      ])
 
       file.path = `${file.path}.pub`
     }
