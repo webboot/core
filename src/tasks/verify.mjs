@@ -7,29 +7,9 @@ import is from '@magic/types'
 
 import crypto from '@webboot/crypto'
 
-import { getFiles, json } from '../lib/index.mjs'
+import { getFiles, json, threeWayVerifyFile } from '../lib/index.mjs'
 
 const libName = '@webboot/core.tasks.verify'
-
-export const verifyFile = sriHashes => file => {
-  const fileHash = crypto.hash.create(file.content)
-
-  let argumentValid = true
-
-  if (file.hash) {
-    const { algorithm } = file
-    argumentValid = crypto.hash.check(file.content, file.hash, { algorithm })
-  }
-
-  const valid = crypto.hash.check(file.content, fileHash.hash)
-
-  const sri = sriHashes[file.url]
-  const algoHash = `${file.algorithm}-${file.hash}`
-
-  const mismatch = sri !== algoHash
-
-  return !valid || !argumentValid || mismatch
-}
 
 export const verify = async state => {
   const startTime = log.hrtime()
@@ -53,7 +33,7 @@ export const verify = async state => {
 
   const mismatches = state.files
     .filter(file => !file.url.startsWith('sri-') && !file.url.endsWith('.json'))
-    .filter(verifyFile(sriHashes))
+    .filter(threeWayVerifyFile(sriHashes))
     .map(f => f.file)
 
   if (mismatches.length) {
