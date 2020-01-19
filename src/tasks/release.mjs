@@ -3,6 +3,14 @@ import log from '@magic/log'
 const libName = `@webboot/core.tasks.release`
 
 export const release = async state => {
+  if (is.empty(state)) {
+    throw error(...errors.E_STATE_EMPTY)
+  }
+
+  if (!is.objectNative(state)) {
+    throw error(errors.E_STATE_TYPE)
+  }
+
   log.error('E_NOT_IMPLEMENTED', `${libName} not implemented yet.`)
 
   // url    - url of the homepage
