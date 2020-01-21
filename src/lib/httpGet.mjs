@@ -1,6 +1,9 @@
 import https from 'https'
 import URL from 'url'
 
+import error from '@magic/error'
+import is from '@magic/types'
+
 import { errorMessages } from '../errorMessages.mjs'
 
 const libName = '@webboot/core.lib.httpGet'
@@ -10,13 +13,15 @@ export const errors = errorMessages(libName)
 export const httpGet = url =>
   new Promise((resolve, reject) => {
     if (is.empty(url)) {
-      throw error(errors.HTTP_URL_EMPTY)
+      reject(errors.HTTP_URL_EMPTY)
+      return
     }
 
     https
       .get(url, res => {
         if (res.statusCode > 399) {
           reject(res)
+          return
         }
 
         let data = ''
