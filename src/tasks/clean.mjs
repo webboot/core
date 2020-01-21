@@ -10,19 +10,19 @@ export const errors = errorMessages(libName)
 
 export const clean = async state => {
   if (is.empty(state)) {
-    throw error(...errors.E_STATE_EMPTY)
+    throw error(errors.STATE_EMPTY)
   }
 
   if (!is.objectNative(state)) {
-    throw error(errors.E_STATE_TYPE)
+    throw error(errors.STATE_TYPE)
   }
 
   if (is.empty(state.sri)) {
-    throw error(...errors.E_STATE_SRI_EMPTY)
+    throw error(errors.STATE_SRI_EMPTY)
   }
 
   if (!is.string(state.sri)) {
-    throw error(...errors.E_STATE_SRI_TYPE)
+    throw error(errors.STATE_SRI_TYPE)
   }
 
   return await fs.rmrf(state.sri)
