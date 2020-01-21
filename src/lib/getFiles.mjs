@@ -12,7 +12,7 @@ export const errors = errorMessages(libName)
 
 export const getFiles = async (state = {}) => {
   if (is.empty(state)) {
-    throw error(...errors.E_STATE_EMPTY)
+    throw error(errors.STATE_EMPTY)
   }
 
   if (!is.empty(state.files)) {
@@ -22,7 +22,7 @@ export const getFiles = async (state = {}) => {
   const stat = await fs.stat(state.dir)
 
   if (!stat.isDirectory()) {
-    throw error(...errors.E_NOT_A_DIR)
+    throw error(errors.NOT_A_DIR)
   }
 
   const filePaths = await fs.getFiles(state.dir, true)
