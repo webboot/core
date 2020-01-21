@@ -32,5 +32,10 @@ export const errorMessages = libName =>
       ['HTTP_URL_TYPE', `${libName} url (1st fn arg) can not be empty.`],
 
       ['HASH_MISMATCH', arg => [`file hash mismatches:\n${arg}`, 'HASH_MISMATCH']],
+
+      ['EXEC_ERR', arg => [`${libName} ${arg.trim()}`, 'EXEC_ERR']],
+
+      ['EMAIL_EMPTY', `${libName} email can not be empty`],
+      ['EMAIL_TYPE', `${libName} email needs to be a string and include at least one @ and one .`],
     ].map(mapMessageToError),
   )
