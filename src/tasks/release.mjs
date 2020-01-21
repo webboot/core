@@ -4,11 +4,11 @@ const libName = `@webboot/core.tasks.release`
 
 export const release = async state => {
   if (is.empty(state)) {
-    throw error(...errors.E_STATE_EMPTY)
+    throw error(errors.STATE_EMPTY)
   }
 
   if (!is.objectNative(state)) {
-    throw error(errors.E_STATE_TYPE)
+    throw error(errors.STATE_TYPE)
   }
 
   log.error('E_NOT_IMPLEMENTED', `${libName} not implemented yet.`)

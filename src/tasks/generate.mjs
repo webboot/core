@@ -14,19 +14,19 @@ export const errors = errorMessages(libName)
 
 export const generate = async state => {
   if (is.empty(state)) {
-    throw error(errors.E_STATE_EMPTY)
+    throw error(errors.STATE_EMPTY)
   }
 
   if (!is.objectNative(state)) {
-    throw error(errors.E_STATE_TYPE)
+    throw error(errors.STATE_TYPE)
   }
 
   if (is.empty(state.dir)) {
-    throw error(errors.E_STATE_DIR_EMPTY)
+    throw error(errors.STATE_DIR_EMPTY)
   }
 
   if (!is.string(state.dir)) {
-    throw error(errors.E_STATE_DIR_TYPE)
+    throw error(errors.STATE_DIR_TYPE)
   }
 
   const startTime = log.hrtime()

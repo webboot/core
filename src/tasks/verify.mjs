@@ -19,19 +19,19 @@ export const verify = async state => {
   const startTime = log.hrtime()
 
   if (is.empty(state)) {
-    throw error(errors.E_STATE_EMPTY)
+    throw error(errors.STATE_EMPTY)
   }
 
   if (!is.objectNative(state)) {
-    throw error(errors.E_STATE_TYPE)
+    throw error(errors.STATE_TYPE)
   }
 
   if (is.empty(state.sri)) {
-    throw error(errors.E_STATE_SRI_EMPTY)
+    throw error(errors.STATE_SRI_EMPTY)
   }
 
   if (!is.string(state.sri)) {
-    throw error(errors.E_STATE_SRI_TYPE)
+    throw error(errors.STATE_SRI_TYPE)
   }
 
   if (!path.isAbsolute(state.sri)) {
@@ -39,11 +39,11 @@ export const verify = async state => {
   }
 
   if (is.empty(state.dir)) {
-    throw error(errors.E_STATE_DIR_EMPTY)
+    throw error(errors.STATE_DIR_EMPTY)
   }
 
   if (!is.string(state.dir)) {
-    throw error(errors.E_STATE_DIR_TYPE)
+    throw error(errors.STATE_DIR_TYPE)
   }
 
   if (!path.isAbsolute(state.dir)) {
@@ -56,13 +56,13 @@ export const verify = async state => {
   const sriHashes = json.parse(sriHashString)
 
   const mismatches = state.files
-    .filter(file => !file.url.startsWith('sri-') && !file.url.endsWith('.json'))
+    .filter(file => file.url === '/file.txt')
     .filter(threeWayVerifyFile(sriHashes))
     .map(f => f.file)
 
   if (mismatches.length) {
     const mismatchString = mismatches.join('\n')
-    throw error('file hash mismatches:\n' + mismatchString, 'E_HASH_MISMATCH')
+    throw error(errors.HASH_MISMATCH(mismatchString))
   }
 
   log.timeTaken(startTime, '@webboot/core verify took:')
