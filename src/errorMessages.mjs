@@ -54,10 +54,6 @@ export const errorMessages = libName =>
         ],
       ],
 
-      [
-        'JSON_PARSE',
-        msg => [`${libName}.parse:\n${msg}`, 'JSON_PARSE']
-      ],
-
+      ['JSON_PARSE', msg => [`${libName}.parse:\n${msg}`, 'JSON_PARSE']],
     ].map(mapMessageToError),
   )
