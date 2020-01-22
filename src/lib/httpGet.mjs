@@ -10,15 +10,24 @@ const libName = '@webboot/core.lib.httpGet'
 
 export const errors = errorMessages(libName)
 
-export const httpGet = url =>
+export const httpGet = (url, options = {}) =>
   new Promise((resolve, reject) => {
     if (is.empty(url)) {
       reject(errors.HTTP_URL_EMPTY)
       return
     }
 
+    options = {
+      ...options,
+      headers: {
+        'User-Agent': 'webboot',
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    }
+
     https
-      .get(url, res => {
+      .get(url, options, res => {
         if (res.statusCode > 399) {
           reject(res)
           return
