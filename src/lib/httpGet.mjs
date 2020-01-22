@@ -21,7 +21,6 @@ export const httpGet = (url, options = {}) =>
       ...options,
       headers: {
         'User-Agent': 'webboot',
-        'Content-Type': 'application/json',
         ...options.headers,
       },
     }
@@ -29,7 +28,7 @@ export const httpGet = (url, options = {}) =>
     https
       .get(url, options, res => {
         if (res.statusCode > 399) {
-          reject(res)
+          reject(errors.HTTP_STATUSCODE(res))
           return
         }
 
