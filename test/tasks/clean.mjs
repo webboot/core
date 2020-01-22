@@ -70,22 +70,22 @@ export default [
   },
   {
     fn: tryCatch(clean),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_EMPTY),
     info: 'empty state throw E_STATE_EMPTY',
   },
   {
     fn: tryCatch(clean, ['']),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_TYPE),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_TYPE),
     info: 'non object state throw E_STATE_TYPE',
   },
   {
     fn: tryCatch(clean, { sri: '' }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_SRI_EMPTY),
     info: 'empty sri errors with E_STATE_SRI_EMPTY.',
   },
   {
     fn: tryCatch(clean, { sri: 23 }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_TYPE),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_SRI_TYPE),
     info: 'empty sri errors with E_STATE_SRI_TYPE.',
   },
 ]

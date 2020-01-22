@@ -26,12 +26,12 @@ export default [
   { fn: tryCatch(verify), expect: is.error, info: 'errors without a state' },
   {
     fn: tryCatch(verify),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_EMPTY),
     info: 'errors without a state, code: E_STATE_EMPTY',
   },
   {
     fn: tryCatch(verify, ['']),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_TYPE),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_TYPE),
     info: 'state must be an object, code: E_STATE_TYPE',
   },
   {
@@ -41,12 +41,12 @@ export default [
   },
   {
     fn: tryCatch(verify, { unused: true }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_SRI_EMPTY),
     info: 'error if state.sri is empty: E_STATE_SRI_EMPTY',
   },
   {
     fn: tryCatch(verify, { sri: 23 }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_SRI_TYPE),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_SRI_TYPE),
     info: 'error if state.sri is empty: E_STATE_SRI_TYPE',
   },
   {
@@ -56,12 +56,12 @@ export default [
   },
   {
     fn: tryCatch(verify, { sri: sriHashPath, dir: '' }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_DIR_EMPTY),
     info: 'errors if state.dir is empty, code: E_STATE_DIR_EMPTY',
   },
   {
     fn: tryCatch(verify, { sri: sriHashPath, dir: 23 }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_TYPE),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_DIR_TYPE),
     info: 'errors if state.dir is not a string, code: E_STATE_DIR_TYPE',
   },
   {
@@ -81,7 +81,7 @@ export default [
   },
   {
     fn: tryCatch(verify, { dir: fixturePath, sri: sriInvalidPath }),
-    expect: t => t.code === 'E_HASH_MISMATCH',
+    expect: t => t.code === 'E_HASH_MISMATCH' && t.name === 'HASH_MISMATCH',
     info: 'sri-invalid-hash.json does error with E_HASH_MISMATCH.',
   },
 

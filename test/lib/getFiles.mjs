@@ -20,7 +20,7 @@ const files = [
 export default [
   {
     fn: tryCatch(getFiles),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_EMPTY),
     info: 'getFiles without state errors with E_STATE_EMPTY',
   },
   {
@@ -59,7 +59,7 @@ export default [
   },
   {
     fn: tryCatch(getFiles, { dir: notADir, sri: 'sri' }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_NOT_A_DIR),
+    expect: t => is.deep.eq([t.message, t.name], errors.NOT_A_DIR),
     info: 'file instead of directory errors with E_NOT_A_DIR',
   },
 ]
