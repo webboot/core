@@ -6,7 +6,7 @@ import { errorMessages } from '../errorMessages.mjs'
 import { prompt } from './prompt.mjs'
 import { getGitPgpKeys } from './getGitPgpKeys.mjs'
 
-const libName = '@webboot/core.lib.getEmail'
+const libName = '@webboot/core.lib.getPgpKey'
 
 export const errors = errorMessages(libName)
 
