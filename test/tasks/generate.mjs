@@ -29,27 +29,27 @@ const before = id => async () => {
 export default [
   {
     fn: tryCatch(generate),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_EMPTY),
     info: 'calling generate without an argument throws E_STATE_EMPTY',
   },
   {
     fn: tryCatch(generate, ''),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_EMPTY),
     info: 'calling generate with empty argument throws E_STATE_EMPTY',
   },
   {
     fn: tryCatch(generate, ['']),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_TYPE),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_TYPE),
     info: 'calling generate with non-empty array throws E_STATE_TYPE',
   },
   {
     fn: tryCatch(generate, { unused: true }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_EMPTY),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_DIR_EMPTY),
     info: 'generate without .dir returns E_STATE_DIR_EMPTY',
   },
   {
     fn: tryCatch(generate, { dir: 23 }),
-    expect: t => is.deep.eq([t.message, t.name], errors.E_STATE_DIR_TYPE),
+    expect: t => is.deep.eq([t.message, t.name], errors.STATE_DIR_TYPE),
     info: 'generate without .dir returns E_STATE_DIR_TYPE',
   },
 
