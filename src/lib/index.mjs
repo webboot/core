@@ -1,5 +1,7 @@
 export { exec } from './exec.mjs'
+export { getEmail } from './getEmail.mjs'
 export { getFiles } from './getFiles.mjs'
+export { getPgpKey } from './getPgpKey.mjs'
 export { getGitPgpKeys } from './getGitPgpKeys.mjs'
 export { httpGet } from './httpGet.mjs'
 export * as json from './json.mjs'
