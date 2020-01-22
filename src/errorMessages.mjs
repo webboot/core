@@ -40,5 +40,7 @@ export const errorMessages = libName =>
 
       ['EMAIL_EMPTY', `${libName} email can not be empty`],
       ['EMAIL_TYPE', `${libName} email needs to be a string and include at least one @ and one .`],
+
+      ['HTTP_STATUSCODE', res => [`${libName} http statuscode indicated an error. ${res.statusCode} ${res.statusMessage}`, 'HTTP_STATUSCODE']],
     ].map(mapMessageToError),
   )
