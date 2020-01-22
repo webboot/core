@@ -28,7 +28,7 @@ export const httpGet = (url, options = {}) =>
     https
       .get(url, options, res => {
         if (res.statusCode > 399) {
-          reject(errors.HTTP_STATUSCODE(res))
+          reject(error(errors.HTTP_STATUSCODE(res)))
           return
         }
 
