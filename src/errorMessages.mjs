@@ -25,6 +25,9 @@ export const errorMessages = libName =>
       ['STATE_PASSPHRASE_EMPTY', `${libName} state.passphrase must be non-empty.`],
       ['STATE_PASSPHRASE_TYPE', `${libName} state.passphrase must be a string.`],
 
+      ['STATE_USERNAME_EMPTY', `${libName} state.username must be non-empty.`],
+      ['STATE_USERNAME_TYPE', `${libName} state.username must be a string.`],
+
       ['PUB_IS_PRIV_KEY', `${libName} state.publicKey is a private key file. do not do that.`],
       ['PUB_NOT_A_KEY', `${libName} state.publicKey is not a public key file.`],
 
