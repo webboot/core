@@ -55,13 +55,13 @@ export default [
 
   {
     fn: async () => await generate({ dir: testDir + 1 }),
-    expect: t => t.dir === testDir + 1,
+    expect: t => is.array(t) && is.len.eq(t, 2),
     before: before(1),
     info: 'generate can work with a dir and without files, returns same dir as .dir',
   },
   {
     fn: async () => await generate({ dir: testDir + 2 }),
-    expect: t => is.length.eq(t.files, 2),
+    expect: t => is.length.eq(t, 2),
     before: before(2),
     info: 'generate can work with a dir and without files, returns correct number of files',
   },

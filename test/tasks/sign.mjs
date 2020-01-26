@@ -1,12 +1,8 @@
-import path from 'path'
-
 import { fs, is, tryCatch } from '@magic/test'
 
 import { errorMessages } from '../../src/errorMessages.mjs'
 
 import { sign, errors } from '../../src/tasks/sign.mjs'
-
-const testDir = path.join(process.cwd(), '.__test__clean__')
 
 export default [
   {
@@ -51,22 +47,4 @@ export default [
     expect: t => is.deep.eq([t.msg, t.name], errors.STATE_USERNAME_TYPE),
     info: 'non string state.username errors with STATE_USERNAME_TYPE',
   },
-  {
-    fn: tryCatch(sign, { username: 'jaeh', email: 23 }),
-    expect: t => is.deep.eq([t.msg, t.name], errors.STATE_EMAIL_TYPE),
-    info: 'non string state.username errors with STATE_EMAIL_TYPE',
-  },
-  {
-    fn: sign({ username: 'jaeh' }),
-    expect: t => !is.empty(t.key),
-    info: 'returned state includes pubKey',
-  },
-
-  // if (is.empty(username)) {
-  // throw error(errors.STATE_USERNAME_EMPTY)
-  // }
-
-  // if (!is.string(username)) {
-  // throw error(errors.STATE_USERNAME_TYPE)
-  // }
 ]
