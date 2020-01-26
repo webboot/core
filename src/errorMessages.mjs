@@ -55,5 +55,7 @@ export const errorMessages = libName =>
       ],
 
       ['JSON_PARSE', msg => [`${libName}.parse:\n${msg}`, 'JSON_PARSE']],
+
+      ['HOMEPAGE_EMPTY', `${libName} could not find a homepage field in package.json.`],
     ].map(mapMessageToError),
   )
