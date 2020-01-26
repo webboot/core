@@ -25,7 +25,8 @@
     "@magic/fs": "0.0.3",
     "@magic/log": "0.1.3",
     "@magic/types": "0.1.11",
-    "@webboot/crypto": "github:webboot/crypto"
+    "@webboot/crypto": "github:webboot/crypto",
+    "@webboot/keys": "github:webboot/keys"
   },
   "devDependencies": {
     "@magic/format": "0.0.7",
