@@ -31,9 +31,9 @@ export const generate = async state => {
 
   const startTime = log.hrtime()
 
-  state.files = await getFiles(state)
+  const files = await getFiles(state)
 
   log.timeTaken(startTime, `${libName} took:`)
 
-  return state
+  return files
 }
