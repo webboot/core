@@ -9,7 +9,7 @@ import crypto from '@webboot/crypto'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-import { getFiles, json, threeWayVerifyFile } from '../lib/index.mjs'
+import { getFiles, json, maybeThrow, threeWayVerifyFile } from '../lib/index.mjs'
 
 const libName = '@webboot/core.tasks.verify'
 
@@ -21,29 +21,24 @@ export const verify = async state => {
   if (is.empty(state)) {
     throw error(errors.STATE_EMPTY)
   }
-
   if (!is.objectNative(state)) {
     throw error(errors.STATE_TYPE)
   }
-
   if (is.empty(state.sri)) {
     throw error(errors.STATE_SRI_EMPTY)
   }
-
   if (!is.string(state.sri)) {
     throw error(errors.STATE_SRI_TYPE)
+  }
+  if (is.empty(state.dir)) {
+    throw error(errors.STATE_DIR_EMPTY)
+  }
+  if (!is.string(state.dir)) {
+    throw error(errors.STATE_DIR_TYPE)
   }
 
   if (!path.isAbsolute(state.sri)) {
     state.sri = path.join(state.cwd, state.sri)
-  }
-
-  if (is.empty(state.dir)) {
-    throw error(errors.STATE_DIR_EMPTY)
-  }
-
-  if (!is.string(state.dir)) {
-    throw error(errors.STATE_DIR_TYPE)
   }
 
   if (!path.isAbsolute(state.dir)) {
