@@ -9,7 +9,7 @@ import crypto from '@webboot/crypto'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-import { getFiles, json, maybeThrow, threeWayVerifyFile } from '../lib/index.mjs'
+import { getFiles, json, threeWayVerifyFile } from '../lib/index.mjs'
 
 const libName = '@webboot/core.tasks.verify'
 
