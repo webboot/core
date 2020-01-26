@@ -36,10 +36,9 @@ export const getPgpKey = async (state = {}) => {
     })
 
     // TODO: prompt for 1-x here
-    const keyId = prompt({ msg: 'Please select a number:' })
+    const keyId = await prompt({ msg: 'Please select a number:' })
+    const key = keyId - 1
   }
 
-  state.key = foundKeys[0]
-
-  return state
+  return foundKeys[0]
 }
