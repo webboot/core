@@ -1,10 +1,13 @@
+import path from 'path'
+
 import log from '@magic/log'
 import error from '@magic/error'
+import fs from '@magic/fs'
 import is from '@magic/types'
 
 import crypto from '@webboot/crypto'
 
-import { exec, getEmail, getPgpKey } from '../lib/index.mjs'
+import { exec, getDomain, getEmail, getPgpKey } from '../lib/index.mjs'
 
 import { errorMessages } from '../errorMessages.mjs'
 
@@ -33,26 +36,39 @@ export const sign = async state => {
     throw error(errors.STATE_USERNAME_TYPE)
   }
 
+  if (is.empty(state.sri)) {
+    throw error(errors.STATE_SRI_EMPTY)
+  }
+
+  if (!is.string(state.sri)) {
+    throw error(errors.STATE_SRI_TYPE)
+  }
+
   state.email = await getEmail(state)
 
   state.key = await getPgpKey(state)
 
-  // nice to have:
-  // get user passphrase interactively, launch a worker process for that.
-  // only send the hash back to this process.
-  if (is.empty(state.passphrase)) {
-    throw error(error.STATE_PASSPHRASE_EMPTY)
+  state.domain = await getDomain(state)
+
+  const sriHashString = await fs.readFile(state.sri, 'utf8')
+  const sriHashes = JSON.parse(sriHashString)
+
+  const signed = {
+    username: state.username,
+    key: state.key.key,
+    domain: state.domain,
   }
 
-  if (!is.string(state.passphrase)) {
-    throw error(error.STATE_PASSPHRASE_EMPTY)
-  }
+  const webbootAsc = path.join(process.cwd(), 'node_modules', '@webboot', 'keys', 'src', 'webboot.asc')
 
-  // const hashed = crypto.hash.create(content)
+  const sig = await crypto.gpg(`--clear-sign --armor -o- ${webbootAsc}`)
+  signed.sig = sig
 
-  // const secret = `${passphrase} ${pubKeyContent.trim()} ${hashed.algorithm}-${hashed.hash}`
+  console.log('signed', signed)
 
-  // const keys = crypto.ecdh(secret)
+  const keys = crypto.ecdh(sig)
+
+  console.log({ keys })
 
   log.timeTaken(startTime, '@webboot/core sign took:')
 
