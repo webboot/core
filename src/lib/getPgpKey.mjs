@@ -1,5 +1,7 @@
 import is from '@magic/types'
 import error from '@magic/error'
+import log from '@magic/log'
+
 import crypto from '@webboot/crypto'
 
 import { errorMessages } from '../errorMessages.mjs'
@@ -26,19 +28,22 @@ export const getPgpKey = async (state = {}) => {
     }),
   )
 
+  let key = 0
+
   if (foundKeys.length > 1) {
     log.warn('W_MORE_THAN_1_GPG_KEY', 'found more than 1 key.')
     log('using the first found key for now, TODO: implement a selection.')
-    log('please select the key you want to use:')
+    log('please select the key you want to use:\n')
 
     foundKeys.forEach((key, i) => {
-      log(`${i + 1} - ${key.key}`)
+      const { name, email } = key.users[0]
+      log(`${i + 1} - ${key.key} - ${name} - ${email}`)
     })
 
     // TODO: prompt for 1-x here
-    const keyId = await prompt({ msg: 'Please select a number:' })
-    const key = keyId - 1
+    const keyId = await prompt({ msg: `Please enter a number between 1 and ${foundKeys.length}:` })
+    key = keyId - 1
   }
 
-  return foundKeys[0]
+  return foundKeys[key]
 }
