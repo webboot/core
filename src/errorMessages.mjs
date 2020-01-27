@@ -15,6 +15,9 @@ export const errorMessages = libName =>
       ['STATE_DIR_EMPTY', `${libName} state.dir must be non-empty.`],
       ['STATE_DIR_TYPE', `${libName} state.dir must be a string.`],
 
+      ['STATE_FILES_EMPTY', `${libName} state.files must be non-empty.`],
+      ['STATE_FILES_TYPE', `${libName} state.files must be an array.`],
+
       ['NOT_A_DIR', `${libName} expects a directory.`],
 
       ['STATE_PUB_KEY_EMPTY', `${libName} state.pubKey must be non-empty.`],
