@@ -24,36 +24,31 @@ export const verify = async state => {
   if (!is.objectNative(state)) {
     throw error(errors.STATE_TYPE)
   }
+
   if (is.empty(state.sri)) {
     throw error(errors.STATE_SRI_EMPTY)
   }
   if (!is.string(state.sri)) {
     throw error(errors.STATE_SRI_TYPE)
   }
-  if (is.empty(state.dir)) {
-    throw error(errors.STATE_DIR_EMPTY)
+
+  if (is.empty(state.files)) {
+    throw error(errors.STATE_FILES_EMPTY)
   }
-  if (!is.string(state.dir)) {
-    throw error(errors.STATE_DIR_TYPE)
+  if (!is.array(state.files)) {
+    throw error(errors.STATE_FILES_TYPE)
   }
 
   if (!path.isAbsolute(state.sri)) {
     state.sri = path.join(state.cwd, state.sri)
   }
 
-  if (!path.isAbsolute(state.dir)) {
-    state.dir = path.join(state.cwd, state.dir)
-  }
-
-  state.files = await getFiles(state)
-
+  // that file just got written, reading from filesystem to make sure the written content is valid
   const sriHashString = await fs.readFile(state.sri, 'utf8')
   const sriHashes = json.parse(sriHashString)
 
-  const mismatches = state.files
-    .filter(file => file.url === '/file.txt')
-    .filter(threeWayVerifyFile(sriHashes))
-    .map(f => f.file)
+  // threeWayVerify reads the file from disk and from state, then verifies hashes.
+  const mismatches = state.files.filter(threeWayVerifyFile(sriHashes)).map(f => f.file)
 
   if (mismatches.length) {
     const mismatchString = mismatches.join('\n')
