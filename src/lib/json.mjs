@@ -3,7 +3,7 @@ import is from '@magic/types'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-const libName = '@webboot/core.lib.json'
+const libName = '@webboot/cli.lib.json'
 
 export const errors = errorMessages(libName)
 

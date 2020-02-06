@@ -1,16 +1,30 @@
 import is from '@magic/types'
 import error from '@magic/error'
 import log from '@magic/log'
+import cli from '@magic/cli'
 
 import crypto from '@webboot/crypto'
 
 import { errorMessages } from '../errorMessages.mjs'
-import { prompt } from './prompt.mjs'
 import { getGitPgpKeys } from './getGitPgpKeys.mjs'
 
-const libName = '@webboot/core.lib.getPgpKey'
+const libName = '@webboot/cli.lib.getPgpKey'
 
 export const errors = errorMessages(libName)
+
+export const prompt = async (k) => {
+  const keyId = await cli.prompt(`Please enter a number between 1 and ${k.length}:`)
+
+  if (!is.number(parseInt(keyId))) {
+     return await prompt(k)
+  }
+
+  if (keyId > k) {
+    return await prompt(k)
+  }
+
+  return keyId - 1
+}
 
 export const getPgpKey = async (state = {}) => {
   // get users keys from https://api.github.com/users/:username/gpg_keys
@@ -32,17 +46,16 @@ export const getPgpKey = async (state = {}) => {
 
   if (foundKeys.length > 1) {
     log.warn('W_MORE_THAN_1_GPG_KEY', 'found more than 1 key.')
-    log('using the first found key for now, TODO: implement a selection.')
     log('please select the key you want to use:\n')
 
     foundKeys.forEach((key, i) => {
       const { name, email } = key.users[0]
-      log(`${i + 1} - ${key.key} - ${name} - ${email}`)
+      log.warn(i + 1, ` - ${key.key} - ${name} - ${email}`)
     })
 
     // TODO: prompt for 1-x here
-    const keyId = await prompt({ msg: `Please enter a number between 1 and ${foundKeys.length}:` })
-    key = keyId - 1
+    key = await prompt(foundKeys)
+
   }
 
   return foundKeys[key]

@@ -4,7 +4,7 @@ import error from '@magic/error'
 import { errorMessages } from '../errorMessages.mjs'
 import { exec } from './exec.mjs'
 
-const libName = '@webboot/core.lib.getEmail'
+const libName = '@webboot/cli.lib.getEmail'
 
 export const errors = errorMessages(libName)
 
@@ -28,7 +28,5 @@ export const getEmail = async (state = {}) => {
     throw error(errors.STATE_EMAIL_TYPE)
   }
 
-  state.email = email
-
-  return state
+  return email
 }

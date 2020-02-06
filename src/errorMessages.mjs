@@ -42,7 +42,7 @@ export const errorMessages = libName =>
       ['HTTP_URL_EMPTY', `${libName} url (1st fn arg) can not be empty.`],
       ['HTTP_URL_TYPE', `${libName} url (1st fn arg) can not be empty.`],
 
-      ['HASH_MISMATCH', arg => [`file hash mismatches:\n${arg}`, 'HASH_MISMATCH']],
+      ['HASH_MISMATCH', arg => [`file hash mismatches:\n${arg}`, 'HASH_MISMATCH']], // used
 
       ['EXEC_ERR', arg => [`${libName} ${arg.trim()}`, 'EXEC_ERR']],
 
@@ -59,6 +59,7 @@ export const errorMessages = libName =>
 
       ['JSON_PARSE', msg => [`${libName}.parse:\n${msg}`, 'JSON_PARSE']],
 
-      ['HOMEPAGE_EMPTY', `${libName} could not find a homepage field in package.json.`],
+      ['PKG_HOMEPAGE_EMPTY', `${libName} could not find a homepage field in package.json.`],
+      ['PKG_VERSION_EMPTY', `${libName} could not find a version field in package.json.`],
     ].map(mapMessageToError),
   )

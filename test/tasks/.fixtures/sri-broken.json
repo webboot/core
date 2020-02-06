@@ -1,5 +1,0 @@
-{
-  // this comment and the comma break it when parsing, the hash would be fine...
-  "/file.txt": "sha384-z0gR10/UBQRnT8MnP4JPpC91W5ZgoukCtX8d90hz2xqRoDe87mXxqI7NHvV/8lTJ"
-  "key": "breaks because no comma before and comma after",
-}

@@ -4,7 +4,7 @@ import error from '@magic/error'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-const libName = '@webboot/core.lib.exec'
+const libName = '@webboot/cli.lib.exec'
 
 const errors = errorMessages(libName)
 
