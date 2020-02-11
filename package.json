@@ -6,7 +6,6 @@
   "license": "AGPL-3.0",
   "description": "@webboot/core. generate, verify, sign, and release sri-hashes for your static page.",
   "main": "src/index.mjs",
-  "private": true,
   "scripts": {
     "start": "t -p",
     "test": "t",
