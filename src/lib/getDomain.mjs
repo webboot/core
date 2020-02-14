@@ -27,7 +27,8 @@ export const getDomain = async state => {
     return cnameContent.trim()
   } catch (e) {
     if (e.code === 'ENOENT') {
-      log.info(`${cnamePath} is not defined. looking in package.json`)
+      log.info(`${cnamePath} is not defined.`)
+      log.info('instead looking in package.json to get page domain.')
     } else {
       throw e
     }
