@@ -15,10 +15,10 @@ export const getDomain = async state => {
     return state.domain
   }
 
-  try {
-    const cwd = process.cwd()
-    const cnamePath = path.join(state.dir, 'CNAME')
+  const cwd = process.cwd()
+  const cnamePath = path.join(state.dir, 'CNAME')
 
+  try {
     const cnameContent = await fs.readFile(cnamePath, 'utf8')
     if (!cnameContent.length || !cnameContent.includes('.')) {
       throw error(`${libName} ${cnamePath} does not contain a valid HOSTNAME.`, 'E_HOSTNAME_TYPE')
