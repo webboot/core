@@ -34,8 +34,5 @@ head to the [docs / demo](https://webboot.github.io/)
 ##### 0.0.1-alpha.0
 first alpha release
 
-##### 0.0.1-alpha.1
-fix: getDomain errored.
-
 ##### 0.0.1 - unreleased
-first release
+* fix: getDomain errored.
