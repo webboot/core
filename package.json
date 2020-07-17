@@ -23,13 +23,13 @@
     "@magic/error": "0.0.6",
     "@magic/fs": "0.0.6",
     "@magic/log": "0.1.5",
-    "@magic/types": "0.1.12",
+    "@magic/types": "0.1.13",
     "@webboot/crypto": "0.0.1-alpha.1",
     "@webboot/keys": "0.0.1-alpha.0"
   },
   "devDependencies": {
-    "@magic/format": "0.0.11",
-    "@magic/test": "0.1.48"
+    "@magic/format": "0.0.12",
+    "@magic/test": "0.1.52"
   },
   "repository": {
     "type": "git",
