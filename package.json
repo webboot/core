@@ -24,7 +24,7 @@
     "@magic/fs": "0.0.6",
     "@magic/log": "0.1.5",
     "@magic/types": "0.1.13",
-    "@webboot/crypto": "0.0.1-alpha.1",
+    "@webboot/crypto": "0.0.1-alpha.2",
     "@webboot/keys": "0.0.1-alpha.0"
   },
   "devDependencies": {
