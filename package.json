@@ -2,7 +2,7 @@
   "name": "@webboot/core",
   "version": "0.0.1-alpha.3",
   "author": "Wizards & Witches @ Webboot DAO",
-  "homepage": "https://webboot.github.io",
+  "homepage": "https://docs.webboot.org",
   "license": "AGPL-3.0",
   "description": "@webboot/core. generate, verify, sign, and release sri-hashes for your static page.",
   "main": "src/index.mjs",
