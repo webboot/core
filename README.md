@@ -43,5 +43,8 @@ bump required node version to 14.2.0
 ##### 0.0.1-alpha.3
 update crypto, dependencies
 
+##### 0.0.1-alpha.4
+update dependencies
+
 ##### 0.0.1 - unreleased
 * fix: getDomain errored.
