@@ -9,7 +9,10 @@
   "scripts": {
     "start": "t -p",
     "test": "t",
-    "format": "f -w",
+    "format": "f -w --exclude docs",
+    "build": "NODE_ENV=production magic build",
+    "prod": "NODE_ENV=production magic build serve --watch src",
+    "dev": "magic dev --watch src",
     "calls": "calls"
   },
   "files": [
@@ -28,8 +31,15 @@
     "@webboot/keys": "0.0.1-alpha.0"
   },
   "devDependencies": {
+    "@magic-modules/git-badges": "0.0.10",
+    "@magic-modules/light-switch": "0.0.9",
+    "@magic-modules/no-spy": "0.0.5",
+    "@magic-modules/pre": "0.0.9",
+    "@magic-themes/reader": "0.0.6",
+    "@magic/core": "0.0.94",
     "@magic/format": "0.0.19",
-    "@magic/test": "0.1.58"
+    "@magic/test": "0.1.58",
+    "@webboot/magic-theme": "0.0.7"
   },
   "repository": {
     "type": "git",
