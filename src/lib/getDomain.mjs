@@ -6,7 +6,7 @@ import log from '@magic/log'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-const libName = '@webboot/cli.lib.getDomain'
+const libName = '@webboot/core.lib.getDomain'
 
 export const errors = errorMessages(libName)
 

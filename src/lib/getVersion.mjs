@@ -5,7 +5,7 @@ import fs from '@magic/fs'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-const libName = '@webboot/cli.lib.getVersion'
+const libName = '@webboot/core.lib.getVersion'
 
 export const errors = errorMessages(libName)
 

@@ -6,7 +6,7 @@ import crypto from '@webboot/crypto'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-const libName = '@webboot/cli.lib.getFiles'
+const libName = '@webboot/core.lib.getFiles'
 
 export const errors = errorMessages(libName)
 

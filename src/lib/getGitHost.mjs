@@ -3,7 +3,7 @@ import child_process from 'child_process'
 import cli from '@magic/cli'
 import log from '@magic/log'
 
-const libName = '@webboot/cli.lib.getGitPgpKeys'
+const libName = '@webboot/core.lib.getGitHost'
 
 export const getGitHost = async () => {
   const gitRemote = child_process.execSync('git remote -v').toString()

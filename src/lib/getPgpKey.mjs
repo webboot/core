@@ -8,7 +8,7 @@ import crypto from '@webboot/crypto'
 import { errorMessages } from '../errorMessages.mjs'
 import { getGitPgpKeys } from './getGitPgpKeys.mjs'
 
-const libName = '@webboot/cli.lib.getPgpKey'
+const libName = '@webboot/core.lib.getPgpKey'
 
 export const errors = errorMessages(libName)
 

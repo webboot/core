@@ -7,7 +7,7 @@ import is from '@magic/types'
 
 import { errorMessages } from '../errorMessages.mjs'
 
-const libName = '@webboot/cli.lib.httpGet'
+const libName = '@webboot/core.lib.httpRequest'
 
 export const errors = errorMessages(libName)
 
