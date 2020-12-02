@@ -30,10 +30,7 @@ export const getFiles = async (state = {}) => {
   const filePromises = filePaths
     .filter(file => !file.endsWith(state.sri))
     .map(async file => {
-      const url = file
-        .replace(state.dir, '')
-        .replace('index.html', '')
-        .replace('.html', '/')
+      const url = file.replace(state.dir, '').replace('index.html', '').replace('.html', '/')
 
       const content = await fs.readFile(file, 'utf8')
 

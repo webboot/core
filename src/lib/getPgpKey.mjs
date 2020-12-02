@@ -12,11 +12,11 @@ const libName = '@webboot/cli.lib.getPgpKey'
 
 export const errors = errorMessages(libName)
 
-export const prompt = async (k) => {
+export const prompt = async k => {
   const keyId = await cli.prompt(`Please enter a number between 1 and ${k.length}:`)
 
   if (!is.number(parseInt(keyId))) {
-     return await prompt(k)
+    return await prompt(k)
   }
 
   if (keyId > k) {
@@ -55,7 +55,6 @@ export const getPgpKey = async (state = {}) => {
 
     // TODO: prompt for 1-x here
     key = await prompt(foundKeys)
-
   }
 
   return foundKeys[key]
