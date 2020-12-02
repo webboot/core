@@ -1,4 +1,3 @@
-import error from '@magic/error'
 import is from '@magic/types'
 
 export const mapMessageToError = ([name, msg]) => [name, is.fn(msg) ? msg : [msg, name]]
@@ -61,5 +60,7 @@ export const errorMessages = libName =>
 
       ['PKG_HOMEPAGE_EMPTY', `${libName} could not find a homepage field in package.json.`],
       ['PKG_VERSION_EMPTY', `${libName} could not find a version field in package.json.`],
+
+      ['REIMPORT_PASSPHRASE', `${libName} could not reimport gpg encrypted passphrase`],
     ].map(mapMessageToError),
   )
