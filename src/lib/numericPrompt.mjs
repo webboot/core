@@ -1,5 +1,6 @@
 import cli from '@magic/cli'
 import is from '@magic/types'
+import log from '@magic/log'
 
 import error from '@magic/error'
 import { errorMessages } from '../errorMessages.mjs'
@@ -33,9 +34,9 @@ export const numericPrompt = async (args = {}) => {
     items.forEach(itemLoop)
   }
 
-  const keyId = await cli.prompt(question)
+  const keyIdAnswer = await cli.prompt(question)
 
-  keyId = parseInt(keyId)
+  const keyId = parseInt(keyIdAnswer)
 
   const notANum = !is.number(keyId)
   const tooSmall = keyId < 1
