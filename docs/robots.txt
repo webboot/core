@@ -1,0 +1,3 @@
+user-agent: *
+allow: /
+sitemap: https://docs.webboot.org/core/sitemap.xml
