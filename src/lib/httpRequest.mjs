@@ -1,14 +1,11 @@
 import http from 'http'
 import https from 'https'
-import URL from 'url'
 
 import error from '@magic/error'
 import is from '@magic/types'
 
 import { errorMessages } from '../errorMessages.mjs'
-
-const libName = '@webboot/core.lib.httpRequest'
-
+export const libName = '@webboot/core.lib.httpRequest'
 export const errors = errorMessages(libName)
 
 export const httpRequest = (url, options = {}) =>
