@@ -8,6 +8,7 @@ import log from '@magic/log'
 import crypto from '@webboot/crypto'
 
 import { errorMessages } from '../errorMessages.mjs'
+import { numericPrompt } from './numericPrompt.mjs'
 
 const libName = '@webboot/core.lib.getPassPhrase'
 
@@ -41,22 +42,18 @@ export const getPassphrase = async state => {
   const passPhraseFileExists = existingPassPhraseFiles.length > 0
 
   if (passPhraseFileExists) {
+    let doIt = false
     let file = existingPassPhraseFiles[0]
 
     if (existingPassPhraseFiles.length > 1) {
-      log.info('Found more than one passphrasefile.')
-
-      existingPassPhraseFiles.forEach((file, i) => {
-        log.warn(i + 1, ' - ', file)
-      })
-
-      log('Please select one of the files above using a number between')
-      const remoteId = await cli.prompt(`${1} and ${existingPassPhraseFiles.length}: `)
-      file = existingPassPhraseFiles[remoteId - 1]
+      const msg = 'Found more than one webboot Passphrasefile.'
+      file = await numericPrompt({ msg, items: existingPassPhraseFiles })
+      doIt = true
+    } else {
+      log.success('Existing passphrase file found')
+      doIt = await cli.prompt(`Do you want to use this file: ${file}?`, { yesNo: true })
     }
 
-    log.success('Existing passphrase file found')
-    const doIt = await cli.prompt(`Do you want to use this file: ${file}?`, { yesNo: true })
     if (doIt) {
       return await crypto.pgp.decrypt(file)
     }
@@ -64,11 +61,11 @@ export const getPassphrase = async state => {
     log.warn(
       'W_NO_PASSPHRASE_FILE',
       `
-  webboot could not find a passphrase file.
-  looked in:
-  ${log.paint.grey(passPhraseFiles.join('\n'))}
-  if you already own a webboot.pass.gpg file, please specify the location using the --passfile option.
-  `.trim(),
+    webboot could not find a passphrase file.
+    looked in:
+    ${log.paint.grey(passPhraseFiles.join('\n'))}
+    if you already own a webboot.pass file, please specify the location using the --passfile option.
+    `.trim(),
     )
   }
 
