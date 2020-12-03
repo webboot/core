@@ -1,6 +1,6 @@
 import crypto from '@webboot/crypto'
 
-export const threeWayVerifyFile = sriHashes => file => {
+export const threeWayVerifyFile = ({ file, hashes }) => {
   const fileHash = crypto.hash.create(file.content)
 
   let argumentValid = true
@@ -12,7 +12,7 @@ export const threeWayVerifyFile = sriHashes => file => {
 
   const valid = crypto.hash.check(file.content, fileHash.hash)
 
-  const sri = sriHashes[file.url]
+  const sri = hashes[file.url]
   const algoHash = `${file.algorithm}-${file.hash}`
 
   const mismatch = sri !== algoHash
