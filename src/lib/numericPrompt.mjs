@@ -6,25 +6,33 @@ import { errorMessages } from '../errorMessages.mjs'
 const libName = '@webboot/core.lib.numericPrompt'
 export const errors = errorMessages(libName)
 
-export const numericPrompt = async (args = {}) => {
-  const { items = [], msg = '', firstRun = true } = args
-  const max = items.length
+const defaultItemLoop = (item, i) => {
+  log.warn(i + 1, ' - ', item)
+}
 
-  if (!max) {
+export const numericPrompt = async (args = {}) => {
+  if (is.empty(args.items)) {
     throw error(errors.NUMERIC_PROMPT_NO_ITEMS)
   }
+
+  const max = args.items.length
+
+  const {
+    firstRun = true,
+    msg = '',
+    itemLoop = defaultItemLoop,
+    items = [],
+    question = `Please enter a number between 1 and ${max}:`,
+  } = args
 
   if (firstRun) {
     if (msg) {
       log(msg)
     }
 
-    items.forEach((item, i) => {
-      log.warn(i + 1, ' - ', item)
-    })
+    items.forEach(itemLoop)
   }
 
-  const question = `Please enter a number between 1 and ${max}:`
   const keyId = await cli.prompt(question)
 
   keyId = parseInt(keyId)
