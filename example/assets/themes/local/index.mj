@@ -1,0 +1,11 @@
+export const vars = {
+  link: {
+    dark: '#212121',
+    light: '#212121',
+
+    hover: {
+      dark: '#ea4444',
+      light: '#ea4444',
+    },
+  },
+}
