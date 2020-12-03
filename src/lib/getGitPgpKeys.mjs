@@ -1,4 +1,10 @@
+import error from '@magic/error'
+
 import { httpRequest } from './httpRequest.mjs'
+
+import { errorMessages } from '../errorMessages.mjs'
+const libName = '@webboot/core.lib.getGitPgpKeys'
+export const errors = errorMessages(libName)
 
 export const getGitPgpKeys = async state => {
   const { username, host = 'github.com' } = state
@@ -14,9 +20,7 @@ export const getGitPgpKeys = async state => {
     const userData = await httpRequest(`${host}?username=${username}`)
     username = userData.id
   } else {
-    log.error('W_HOST_NOT_SUPPORTED', 'seems you input a custom git domain. support coming soon.')
-    log('please open an issue to tell us about this.')
-    process.exit(1)
+    throw error(errors.GIT_HOST_NOT_SUPPORTED)
   }
 
   if (!url.endsWith('/')) {

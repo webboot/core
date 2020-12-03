@@ -64,5 +64,7 @@ export const errorMessages = libName =>
       ['REIMPORT_PASSPHRASE', `${libName} could not reimport gpg encrypted passphrase`],
 
       ['NUMERIC_PROMPT_NO_ITEMS', `${libName} can not be called with empty or missing .items prop`],
+
+      ['GIT_HOST_NOT_SUPPORTED', 'Seems you input a custom git domain. support coming soon.'],
     ].map(mapMessageToError),
   )
