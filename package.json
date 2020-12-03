@@ -23,6 +23,7 @@
   },
   "engineString": true,
   "dependencies": {
+    "@magic/cli": "0.0.30",
     "@magic/error": "0.0.7",
     "@magic/fs": "0.0.9",
     "@magic/log": "0.1.7",
