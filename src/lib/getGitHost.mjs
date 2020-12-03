@@ -1,7 +1,8 @@
 import cli from '@magic/cli'
-import log from '@magic/log'
 
-const libName = '@webboot/core.lib.getGitHost'
+import { numericPrompt } from './numericPrompt.mjs'
+
+// const libName = '@webboot/core.lib.getGitHost'
 
 export const getGitHost = async () => {
   const gitRemote = await cli.exec('git remote -v')
@@ -33,15 +34,9 @@ export const getGitHost = async () => {
   let host = remoteArray[0]
 
   if (remoteArray.length > 1) {
-    log.warn('W_MANY_REMOTES', 'found more than one remote.')
+    const msg = 'Found more than one remote.'
 
-    remoteArray.forEach((remote, i) => {
-      log.warn(i + 1, ' - ', remote)
-    })
-
-    log('Please select one of the remotes above using a number between')
-    const remoteId = await cli.prompt(`${1} and ${remoteArray.length}: `)
-    host = remoteArray[remoteId - 1]
+    host = await numericPrompt({ items: remoteArray, msg })
   }
 
   return host
