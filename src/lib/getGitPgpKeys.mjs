@@ -1,12 +1,14 @@
 import { httpRequest } from './httpRequest.mjs'
 
-export const getGitPgpKeys = async ({ username, host = 'github' }) => {
-  const apiPath = '/'
+export const getGitPgpKeys = async state => {
+  const { username, host = 'github.com' } = state
 
-  if (host.includes('github')) {
-    host = 'https://api.github.com/users/'
-  } else if (host.includes('gitlab')) {
-    host = 'https://gitlab.com/api/v4/users/'
+  let url = host
+
+  if (host.includes('github.com')) {
+    url = 'https://api.github.com/users/'
+  } else if (host.includes('gitlab.com')) {
+    url = 'https://gitlab.com/api/v4/users/'
 
     // we need the user id instead of the name for gitlab api calls
     const userData = await httpRequest(`${host}?username=${username}`)
@@ -17,13 +19,15 @@ export const getGitPgpKeys = async ({ username, host = 'github' }) => {
     process.exit(1)
   }
 
+  if (!url.endsWith('/')) {
+    url += '/'
+  }
+
   try {
-    const url = `${host}${username}/gpg_keys`
-    const keys = await httpRequest(url)
+    const gpgKeyUrl = `${url}${username}/gpg_keys`
+    const keys = await httpRequest(gpgKeyUrl)
     return JSON.parse(keys)
   } catch (e) {
-    console.log('name', e.name, 'code', e.code)
-
     throw e
   }
 }
