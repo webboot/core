@@ -1,27 +1,14 @@
 import is from '@magic/types'
 import log from '@magic/log'
-import cli from '@magic/cli'
 
 import crypto from '@webboot/crypto'
 
-// import { errorMessages } from '../errorMessages.mjs'
 import { getGitPgpKeys } from './getGitPgpKeys.mjs'
+import { numericPrompt } from './numericPrompt.mjs'
 
+// import { errorMessages } from '../errorMessages.mjs'
 // const libName = '@webboot/core.lib.getPgpKey'
-
 // export const errors = errorMessages(libName)
-
-export const numericPrompt = async k => {
-  const keyId = await cli.prompt(`Please enter a number between 1 and ${k.length}:`)
-
-  keyId = parseInt(keyId)
-
-  if (!is.number(keyId) || keyId < 1 || keyId > k) {
-    return await numericPrompt(k)
-  }
-
-  return keyId - 1
-}
 
 export const getPgpKey = async (state = {}) => {
   // get users keys from https://api.github.com/users/:username/gpg_keys
