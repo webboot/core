@@ -46,5 +46,12 @@ update crypto, dependencies
 ##### 0.0.1-alpha.4
 update dependencies
 
+##### 0.0.1-alpha.5
+* lib/getPassPhrase: allow user to generate new passphrase file, even if it exists
+* lib/threeWayVerifyFile: exports one function, returns it's result directly.
+* add numericPrompt and use it in various places.
+* add errorMessages
+* cleanup
+
 ##### 0.0.1 - unreleased
 * fix: getDomain errored.
