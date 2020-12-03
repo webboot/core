@@ -21,7 +21,7 @@ const spec = {
       stringify: is.fn,
     },
   ],
-  prompt: is.fn,
+  numericPrompt: is.fn,
   threeWayVerifyFile: is.fn,
 }
 
