@@ -1,11 +1,10 @@
 import is from '@magic/types'
 import error from '@magic/error'
 
-import { errorMessages } from '../errorMessages.mjs'
 import { exec } from './exec.mjs'
 
-const libName = '@webboot/core.lib.getEmail'
-
+import { errorMessages } from '../errorMessages.mjs'
+export const libName = '@webboot/core.lib.getEmail'
 export const errors = errorMessages(libName)
 
 export const getEmail = async (state = {}) => {
