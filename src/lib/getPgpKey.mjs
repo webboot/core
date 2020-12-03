@@ -1,4 +1,3 @@
-import is from '@magic/types'
 import log from '@magic/log'
 
 import crypto from '@webboot/crypto'
@@ -11,12 +10,8 @@ import { numericPrompt } from './numericPrompt.mjs'
 // export const errors = errorMessages(libName)
 
 export const getPgpKey = async (state = {}) => {
-  // get users keys from https://api.github.com/users/:username/gpg_keys
+  // get users keys from github/gitlab
   const remoteGitPgpKeys = await getGitPgpKeys(state)
-
-  if (is.error(remoteGitPgpKeys)) {
-    throw remoteGitPgpKeys
-  }
 
   let foundKeys = []
   await Promise.all(
@@ -26,19 +21,16 @@ export const getPgpKey = async (state = {}) => {
     }),
   )
 
-  let key = 0
+  let key = foundKeys[0]
 
   if (foundKeys.length > 1) {
-    log.warn('W_MORE_THAN_1_GPG_KEY', 'found more than 1 key.')
-    log('please select the key you want to use:\n')
-
-    foundKeys.forEach((key, i) => {
+    const itemLoop = (key, i) => {
       const { name, email } = key.users[0]
       log.warn(i + 1, ` - ${key.key} - ${name} - ${email}`)
-    })
+    }
 
-    key = await numericPrompt(foundKeys)
+    key = await numericPrompt({ items: foundKeys, itemLoop, msg: 'Found more than 1 gpg key' })
   }
 
-  return foundKeys[key]
+  return key
 }
