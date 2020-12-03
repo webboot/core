@@ -62,5 +62,7 @@ export const errorMessages = libName =>
       ['PKG_VERSION_EMPTY', `${libName} could not find a version field in package.json.`],
 
       ['REIMPORT_PASSPHRASE', `${libName} could not reimport gpg encrypted passphrase`],
+
+      ['NUMERIC_PROMPT_NO_ITEMS', `${libName} can not be called with empty or missing .items prop`],
     ].map(mapMessageToError),
   )
