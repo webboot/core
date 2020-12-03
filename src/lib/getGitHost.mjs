@@ -1,16 +1,15 @@
-import child_process from 'child_process'
-
 import cli from '@magic/cli'
 import log from '@magic/log'
 
 const libName = '@webboot/core.lib.getGitHost'
 
 export const getGitHost = async () => {
-  const gitRemote = child_process.execSync('git remote -v').toString()
+  const gitRemote = await cli.exec('git remote -v')
 
   const remotes = new Set()
 
   gitRemote
+    .toString()
     .split('\n')
     .filter(a => a.trim())
     .map(remote => {
@@ -19,8 +18,10 @@ export const getGitHost = async () => {
       let host = 'github.com'
 
       if (link.startsWith('http')) {
-        host = link.replace('https://', '').split('/')[0]
+        // http(s)://githost.com/username/repository
+        host = link.split('://')[1].split('/')[0]
       } else if (link.startsWith('git@')) {
+        // git@githost.com:username/repository
         host = link.split('@')[1].split(':')[0]
       }
 
